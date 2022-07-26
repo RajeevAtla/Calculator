@@ -17,6 +17,12 @@ config :calculator, CalculatorWeb.Endpoint,
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    node: [
+      "node_modules/.bin/shadow-cljs",
+      "watch",
+      "app",
+      cd: Path.expand("../assets", __DIR__)
+    ]
   ]
 
 # ## SSL Support
@@ -47,7 +53,7 @@ config :calculator, CalculatorWeb.Endpoint,
 config :calculator, CalculatorWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/.*(css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/calculator_web/(live|views)/.*(ex)$",
       ~r"lib/calculator_web/templates/.*(eex)$"
